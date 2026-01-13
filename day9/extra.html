@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 12 - Advanced TS Forms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typescript/5.3.3/typescript.min.js"></script>
+    <style>
+        .error-msg { color: #ef4444; font-size: 0.875rem; margin-top: 0.25rem; display: none; }
+        .input-error { border-color: #ef4444 !important; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <div class="bg-white p-8 rounded-lg shadow-md w-96">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Developer Profile</h2>
+        
+        <form id="devForm" novalidate>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Username</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="username" type="text" placeholder="DevName">
+                <p id="error-username" class="error-msg">Username is required.</p>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="role">Primary Role</label>
+                <div class="relative">
+                    <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline" 
+                            id="role">
+                        <option value="">Select a role...</option>
+                        <option value="frontend">Frontend Developer</option>
+                        <option value="backend">Backend Developer</option>
+                        <option value="fullstack">Fullstack Developer</option>
+                    </select>
+                </div>
+                <p id="error-role" class="error-msg">Please select a role.</p>
+                <p id="role-feedback" class="text-xs text-blue-600 mt-1 hidden"></p>
+            </div>
+
+            <div class="mb-6">
+                <label class="flex items-center">
+                    <input type="checkbox" id="terms" class="form-checkbox h-4 w-4 text-blue-600">
+                    <span class="ml-2 text-gray-700 text-sm">I agree to the <span class="underline">Terms & Conditions</span></span>
+                </label>
+                <p id="error-terms" class="error-msg">You must agree to the terms.</p>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <button class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full" 
+                        type="submit">
+                    Save Profile
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script type="text/typescript">
+        // --- 1. Element Selection & Casting ---
+        const form = document.getElementById('devForm') as HTMLFormElement;
+        const usernameInput = document.getElementById('username') as HTMLInputElement;
+        
+        // Note: Casting as HTMLSelectElement gives us access to .selectedIndex and .options
+        const roleSelect = document.getElementById('role') as HTMLSelectElement; 
+        const roleFeedback = document.getElementById('role-feedback') as HTMLParagraphElement;
+
+        // Note: Checkboxes are still HTMLInputElement, but we care about .checked
+        const termsCheckbox = document.getElementById('terms') as HTMLInputElement;
+
+        // --- 2. Helper Functions ---
+        const toggleError = (elementId: string, show: boolean) => {
+            const errorEl = document.getElementById(elementId);
+            if(errorEl) errorEl.style.display = show ? 'block' : 'none';
+        };
+
+        // --- 3. Event Handling: 'change' vs 'input' ---
+        
+        // Handle Select Change (Logic specific to dropdowns)
+        roleSelect.addEventListener('change', (e: Event) => {
+            // We can cast the target within the event handler
+            const target = e.target as HTMLSelectElement;
+            
+            if (target.value !== "") {
+                roleFeedback.textContent = `Great choice! We need more ${target.value} devs.`;
+                roleFeedback.style.display = 'block';
+                target.classList.remove('border-red-500'); // Remove error style
+            } else {
+                roleFeedback.style.display = 'none';
+            }
+        });
+
+        // --- 4. Main Validation Logic ---
+        const validateForm = (): boolean => {
+            let isValid = true;
+
+            // Username Validation
+            if (usernameInput.value.trim() === '') {
+                toggleError('error-username', true);
+                usernameInput.classList.add('input-error');
+                isValid = false;
+            } else {
+                toggleError('error-username', false);
+                usernameInput.classList.remove('input-error');
+            }
+
+            // Role (Select) Validation
+            // We check if the value is empty string (the value of our first option)
+            if (roleSelect.value === "") {
+                toggleError('error-role', true);
+                isValid = false;
+            } else {
+                toggleError('error-role', false);
+            }
+
+            // Terms (Checkbox) Validation
+            // Here we check the boolean property .checked
+            if (!termsCheckbox.checked) {
+                toggleError('error-terms', true);
+                isValid = false;
+            } else {
+                toggleError('error-terms', false);
+            }
+
+            return isValid;
+        };
+
+        // --- 5. Submit Handler ---
+        form.addEventListener('submit', (e: SubmitEvent) => {
+            e.preventDefault();
+
+            if (validateForm()) {
+                // Example of gathering data safely
+                const formData = {
+                    username: usernameInput.value,
+                    role: roleSelect.value,
+                    agreedToTerms: termsCheckbox.checked
+                };
+                
+                console.log("Form Data Submitted:", formData);
+                alert("Profile Saved!");
+                form.reset();
+                roleFeedback.style.display = 'none'; // Reset UI specific to Select
+            }
+        });
+    </script>
+</body>
+</html>

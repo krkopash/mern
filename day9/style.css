@@ -1,0 +1,152 @@
+
+    /* 1. Setup & Background */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* 2. Main Card Container */
+    .main-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 900px;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex; /* Flexbox for Desktop layout */
+      flex-direction: row;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    /* 3. Left Side (Identity) */
+    .card-sidebar {
+      background: #1e293b;
+      color: white;
+      padding: 40px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .profile-img {
+      width: 130px;
+      height: 130px;
+      background: #38bdf8;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      border: 5px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .card-sidebar h1 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .role-tag {
+      background: #38bdf8;
+      font-size: 0.8rem;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    /* 4. Right Side (Details) */
+    .card-content {
+      flex: 2;
+      padding: 40px;
+      background: white;
+    }
+
+    .info-section {
+      margin-bottom: 25px;
+    }
+
+    .info-section h2 {
+      color: #1e293b;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-section h2::after {
+      content: "";
+      height: 2px;
+      background: #f1f5f9;
+      flex: 1;
+    }
+
+    .info-section p {
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+
+    /* Skill Tags */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-badge {
+      background: #f1f5f9;
+      color: #475569;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid #e2e8f0;
+    }
+
+    .contact-info {
+      list-style: none;
+      font-size: 0.9rem;
+      color: #475569;
+    }
+
+    .contact-info li {
+      margin-bottom: 8px;
+    }
+
+    .skill-badge:hover{
+    background-color:lightsteelblue;
+    }
+    .card-content:hover{
+      background-color: lightgray;
+      box-shadow: inset;
+    }
+
+    /* 5. Responsive Media Queries */
+    @media (max-width: 768px) {
+      .main-card {
+        flex-direction: column; /* Stack vertically on mobile */
+      }
+
+      .card-sidebar {
+        padding: 30px;
+      }
+
+      .card-content {
+        padding: 30px;
+      }
+    }
