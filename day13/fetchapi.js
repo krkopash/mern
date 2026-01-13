@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,78 +34,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-//Promise
-var checkEven = function () {
-    return new Promise(function (resolve, reject) {
-        var num = 5;
-        if (num % 2 === 0)
-            resolve("even");
-        else
-            reject("odd");
+function getData() {
+    return __awaiter(this, void 0, void 0, function () {
+        var url, response, result, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    url = "https://example.org/products.json";
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 4, , 5]);
+                    return [4 /*yield*/, fetch(url)];
+                case 2:
+                    response = _a.sent();
+                    if (!response.ok) {
+                        throw new Error("Response status: ".concat(response.status));
+                    }
+                    return [4 /*yield*/, response.json()];
+                case 3:
+                    result = _a.sent();
+                    console.log(result);
+                    return [3 /*break*/, 5];
+                case 4:
+                    error_1 = _a.sent();
+                    console.error(error_1.message);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
+            }
+        });
     });
-};
-checkEven()
-    .then(function (num) {
-    console.log(num);
-})
-    .catch(function (error) {
-    console.log(error);
-});
-//Using async - await
-var asyncFun = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var n, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, checkEven()];
-            case 1:
-                n = _a.sent();
-                console.log(n);
-                return [3 /*break*/, 3];
-            case 2:
-                error_1 = _a.sent();
-                console.error("error");
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-//return promise from fun
-var getInfo = function (id) {
-    return new Promise(function (resolve) {
-        setTimeout(function () {
-            resolve({ id: id, name: "hello" });
-        }, 1000);
-    });
-};
-//promise.all
-var promise1 = Promise.resolve(1);
-var promise2 = Promise.resolve("hello");
-Promise.all([promise1, promise2]).then(function (_a) {
-    var num = _a[0], str = _a[1];
-    console.log(num + 1);
-    console.log(str);
-});
-//promise.race
-var firstResolve = Promise.race([Promise.resolve("first"),
-    new Promise(function (resolve) { return setTimeout(function () { return resolve("last"); }, 1000); }),
-]);
-firstResolve.then(function (Value) { return console.log(Value); });
-//promise.any
-var pr1 = Promise.reject(new Error("error"));
-var pr2 = new Promise(function (resolve) { return setTimeout(resolve, 100, "fast"); });
-var pr3 = new Promise(function (resolve) { return setTimeout(resolve, 300, "slow"); });
-var prs = [pr1, pr2, pr3];
-Promise.any(prs).then(function (Value) { return console.log(Value); });
-//Promisifying Callbacks
-function wait(ans) {
-    return new Promise(function (resolve) { return setTimeout(resolve, ans); });
 }
-//Using Generics in a Promise
-var getData = function (data) {
-    return new Promise(function (resolve) { return resolve(data); });
-};
-getData(2).then(function (num) { return console.log(num.toFixed(1)); });
-getData("helllo").then(function (text) { return console.log(text.length); });

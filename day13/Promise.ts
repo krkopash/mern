@@ -37,3 +37,10 @@ const getInfo = (id:number): Promise<{ id: number; name: string}> =>{
     });
 };
 
+//promise.all
+const promise1 = Promise.resolve(1);
+const promise2 = Promise.resolve("hello");
+
+Promise.all([promise1, promise2]).then(([num, str])=>{
+    console.log(nu)
+})
