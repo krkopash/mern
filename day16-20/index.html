@@ -1,11 +1,136 @@
-<html>
-    <head>
-        <title> Frontend mini project</title>
-    </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Dashboard - Interactive Stats</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 font-sans text-gray-800 h-screen overflow-hidden flex">
 
-    <body>
-        <div>
-            
+    <aside class="w-64 bg-slate-900 text-white hidden md:flex flex-col flex-shrink-0 transition-all">
+        <div class="h-16 flex items-center justify-center border-b border-gray-700">
+            <h1 class="text-lg font-bold tracking-widest">OPASH<span class="text-blue-500">SOFTWARE</span></h1>
         </div>
-    </body>
+        <nav class="flex-1 mt-6 px-4 space-y-2">
+            <button onclick="switchView('tasks')" id="btn-tasks" 
+                    class="w-full flex items-center p-3 bg-blue-600 rounded-lg text-white transition-all shadow-md">
+                <i class="fa-solid fa-list-check w-8 text-center"></i> <span class="font-medium">My Tasks</span>
+            </button>
+            
+            <button onclick="switchView('analytics')" id="btn-analytics" 
+                    class="w-full flex items-center p-3 text-gray-400 hover:bg-slate-800 hover:text-white rounded-lg transition-all">
+                <i class="fa-solid fa-chart-pie w-8 text-center"></i> <span class="font-medium">Analytics</span>
+            </button>
+        </nav>
+    </aside>
+
+    <div class="flex-1 flex flex-col h-full overflow-hidden">
+        
+        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-8 z-10 flex-shrink-0">
+            <h2 id="page-title" class="text-xl font-bold text-gray-700">Task Overview</h2>
+            <div class="flex items-center space-x-4">
+                <div class="text-right hidden sm:block">
+                    <p class="text-sm font-bold text-gray-800">Admin panel</p>
+                    <p class="text-xs text-green-500">Logged In</p>
+                </div>
+                <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold border border-blue-200">
+                    KK
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6 relative">
+            
+            <div id="view-tasks" class="block animate-fade-in">
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-blue-500 transform transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer hover:bg-blue-50">
+                        <p class="text-xs font-semibold text-gray-400 uppercase">Total Tasks</p>
+                        <h3 id="stat-total" class="text-3xl font-bold text-gray-800 mt-2">0</h3>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-green-500 transform transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer hover:bg-green-50">
+                        <p class="text-xs font-semibold text-gray-400 uppercase">Completed</p>
+                        <h3 id="stat-completed" class="text-3xl font-bold text-gray-800 mt-2">0</h3>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-orange-500 transform transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer hover:bg-orange-50">
+                        <p class="text-xs font-semibold text-gray-400 uppercase">Pending</p>
+                        <h3 id="stat-pending" class="text-3xl font-bold text-gray-800 mt-2">0</h3>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden max-w-4xl mx-auto border border-gray-100">
+                    <div class="p-6 border-b border-gray-100 flex flex-col md:flex-row justify-between gap-4">
+                        <h3 class="text-lg font-bold text-gray-800">Your Tasks</h3>
+                        <form id="addForm" class="flex gap-2 w-full md:w-auto relative">
+                            <input type="text" id="taskInput" 
+                                class="w-full md:w-80 border border-gray-300 rounded-lg pl-4 pr-10 py-2 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                                placeholder="Add new task..." autocomplete="off">
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition">
+                                Add Task
+                            </button>
+                        </form>
+                    </div>
+
+                    <ul id="taskList" class="divide-y divide-gray-100 max-h-[400px] overflow-y-auto task-scroll bg-white">
+                        </ul>
+                    
+                    <div id="emptyState" class="hidden p-10 text-center">
+                        <div class="inline-block p-4 rounded-full bg-gray-100 text-gray-400 mb-3">
+                            <i class="fa-solid fa-clipboard-list text-3xl"></i>
+                        </div>
+                        <p class="text-gray-500">No tasks found. Add one to get started!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-analytics" class="hidden animate-fade-in">
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-white rounded-xl shadow-md p-8 mb-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-6">Productivity Report</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium text-gray-700">Completion Rate</span>
+                                    <span id="chart-rate-text" class="text-sm font-medium text-blue-700">0%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-4">
+                                    <div id="chart-rate-bar" class="bg-blue-600 h-4 rounded-full transition-width" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium text-gray-700">Pending Workload</span>
+                                    <span id="chart-pending-text" class="text-sm font-medium text-orange-600">0%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-4">
+                                    <div id="chart-pending-bar" class="bg-orange-500 h-4 rounded-full transition-width" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <h4 class="font-bold text-gray-500 text-sm uppercase mb-2">Efficiency</h4>
+                            <p class="text-gray-600 text-sm">
+                                You have completed <strong id="report-completed" class="text-green-600">0</strong> tasks out of <strong id="report-total">0</strong> total.
+                            </p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <h4 class="font-bold text-gray-500 text-sm uppercase mb-2">Status</h4>
+                            <p id="report-status" class="text-gray-600 text-sm italic">No data available.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
