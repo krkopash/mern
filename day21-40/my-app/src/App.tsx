@@ -42,18 +42,19 @@
 // export default App;
 
 
-import Dashboard from "./Day26-Day27/Dashboard";
-import Auth from "./Day26-Day27/Auth";
-import GlobalErrorToast from "./Day26-Day27/GlobalErrorToast";
-import { useAuth } from "./Day26-Day27/AuthContext";
-import "./Day26-Day27/styles.css";
+import Dashboard from "./Day28-Day29/Dashboard";
+import "./Day28-Day29/styles.css";
+// import Auth from "./Day26-Day27/Auth";
+// import GlobalErrorToast from "./Day26-Day27/GlobalErrorToast";
+// import { useAuth } from "./Day26-Day27/AuthContext";
+// import "./Day26-Day27/styles.css";
 
 const App = () => {
-  const { isLoggedIn } = useAuth();
+  // const { isLoggedIn } = useAuth();
 
   return (
     <div className="app">
-      <aside className="sidebar">
+      {/* <aside className="sidebar">
         <h2>SmartPanel</h2>
       </aside>
 
@@ -65,7 +66,8 @@ const App = () => {
         {isLoggedIn ? <Dashboard /> : <Auth />}
       </main>
 
-      <GlobalErrorToast />
+      <GlobalErrorToast /> */}
+      <Dashboard/>
     </div>
   );
 };
