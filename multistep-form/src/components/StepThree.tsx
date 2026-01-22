@@ -25,8 +25,8 @@ const StepThree = ({ data, back }: StepThreeProps) => {
       </ul>
 
       <div className="actions">
-        <button onClick={back}>Back</button>
-        <button onClick={submit}>Submit</button>
+        <button onClick={back}>◀ Previous</button>
+        <button onClick={submit}>Submit ✔</button>
       </div>
     </div>
   );

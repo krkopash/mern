@@ -30,9 +30,9 @@ const StepTwo = ({ data, onChange, next, back }: Props) => {
       />
 
       <div className="actions">
-        <button onClick={back}>Back</button>
+        <button onClick={back}>◀ Previous</button>
         <button disabled={!isValid} onClick={next}>
-          Next
+          Next ▶
         </button>
       </div>
     </div>

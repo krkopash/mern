@@ -8,7 +8,7 @@ type Props = {
 
 const StepOne = ({ data, onChange, next }: Props) => {
   
-  const isValid = data.name && data.email.includes("@");
+  const isValid = data.name && data.email.includes("@") && data.email.includes(".");
 
   return (
     <div className="container">
@@ -29,9 +29,11 @@ const StepOne = ({ data, onChange, next }: Props) => {
       />
       
 
-      <button disabled={!isValid} onClick={next}>
-        Next
-      </button>
+      <div className="actions">
+        <button disabled={!isValid} onClick={next}>
+          Next ▶
+        </button>
+      </div>
     </div>
   );
 };
