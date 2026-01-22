@@ -3,7 +3,6 @@ import React, { useState, useMemo } from 'react';
 
 
 const expensiveCalculationA = (num: number): number => {
-  console.log('Calculating expensive A...');
   let result = 0;
   for (let i = 0; i < 1000000000; i++) {
     result += num;
@@ -12,8 +11,6 @@ const expensiveCalculationA = (num: number): number => {
 };
 
 const expensiveCalculationB = (num: number): number => {
-  console.log('Calculating expensive B...');
-
   let result = 0;
   for (let i = 0; i < 10000000; i++) {
     result += num;
@@ -30,20 +27,20 @@ const Usememo: React.FC = () => {
   const memoizedValueB = useMemo(() => expensiveCalculationB(countB), [countB]);
 
   return (
-    <div className='box'>
+    <div className='card'>
+      <div className='box'>
       <h1>useMemo </h1>
 
       <div>
-        <h2>Calculation A (Slower)</h2>
-        <p>Current Count A: {countA}</p>
+        <h4>Calculation A (Slower): {countA}</h4>
         <button onClick={() => setCountA(countA + 1)}>Increment Count A</button>
       </div>
 
       <div>
-        <h2>Calculation B (Faster)</h2>
-        <p>Current Count B: {countB}</p>
+        <h4>Calculation B (Faster): {countB}</h4>
         <button onClick={() => setCountB(countB + 1)}>Increment Count B</button>
       </div>
+    </div>
     </div>
   );
 };

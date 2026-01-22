@@ -28,6 +28,13 @@ const StepTwo = ({ data, onChange, next, back }: Props) => {
         value={data.age}
         onChange={onChange}
       />
+      <p>Write city name:</p>
+      <input 
+      name="city"
+      placeholder="Your Countty???"
+      value={data.city}
+      onChange={onChange}
+      />
 
       <div className="actions">
         <button onClick={back}>◀ Previous</button>

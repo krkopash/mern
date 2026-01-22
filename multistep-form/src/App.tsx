@@ -11,7 +11,8 @@ const App = () => {
     email: "",
     password: "",
     age: "",
-    country: ""
+    country: "",
+    city: ""
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

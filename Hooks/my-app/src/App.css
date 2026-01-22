@@ -56,3 +56,46 @@ button{
   justify-content: center;
   padding: 50px;
 }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+}
+
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #0f172a;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+ul {
+  list-style: none;
+  padding: 5px;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.error {
+  color: red;
+}
+
+.card:hover{
+  box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+}

@@ -1,3 +1,4 @@
+import UserList from './UserList';
 import React from 'react';
 import Component from './useCallback';
 import Usememo from "./useMemo";
@@ -14,7 +15,7 @@ const App: React.FC = () => {
 
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p>Please wait.........❗</p>;
   }
 
   if (error) {
@@ -22,18 +23,14 @@ const App: React.FC = () => {
   }
 
   return (
-    <div>
-      <Component/><hr/>
-      <Usememo/>
-      {user ? (
-        <>
-          <h1>User Profile</h1>
-          <p>ID: {user.id}</p>
-          <p>name: {user.name}</p>
-        </>
-      ) : (
-        <p>No user data found.</p>
-      )}
+   
+    <div className='box'>
+      <div className="container">
+       <Component/><hr/>
+       <Usememo/><hr/>
+       <UserList />
+    </div>
+
     </div>
   );
 };

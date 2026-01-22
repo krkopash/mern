@@ -4,4 +4,5 @@ export type FormData = {
   password: string;
   age: string;
   country: string;
+  city: string;
 };

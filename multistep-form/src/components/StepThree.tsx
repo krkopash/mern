@@ -22,6 +22,7 @@ const StepThree = ({ data, back }: StepThreeProps) => {
         <li><strong>Name:</strong> {data.name}</li>
         <li><strong>Email:</strong> {data.email}</li>
         <li><strong>Age:</strong> {data.age}</li>
+        <li><strong>City:</strong> {data.city}</li>
       </ul>
 
       <div className="actions">
