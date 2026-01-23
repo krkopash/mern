@@ -42,7 +42,7 @@ body {
 }
 
 .nav-link.active {
-  background: #2563eb;
+  background: #b7bbc2;
   color: white;
 }
 
@@ -86,7 +86,7 @@ body {
 .card p {
   font-size: 24px;
   margin-top: 10px;
-  color: #2563eb;
+  color: #b36feb;
 }
 
 /* Profile */
@@ -102,13 +102,16 @@ body {
 .auth-card {
   background: white;
   padding: 30px;
-  width: 320px;
+  width: 800px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   margin:auto;
   justify-content: center;
 }
 
+.auth-card:hover{
+  background-color: rgba(0,0,0,0.1);
+}
 .auth-card form {
   display: flex;
   flex-direction: column;
@@ -129,7 +132,7 @@ body {
 .auth-card button {
   margin-top: 20px;
   padding: 12px;
-  background: #2563eb;
+  background: #09053f;
   color: white;
   border: none;
   border-radius: 6px;
@@ -137,11 +140,11 @@ body {
 }
 
 .auth-card button:hover {
-  background: #1e40af;
+  background: #544bca;
 }
 
 .error {
-  color: red;
+  color: rgb(106, 36, 128);
   font-size: 12px;
   margin-top: 4px;
 }
@@ -152,7 +155,8 @@ body {
 }
 
 .toggle-text span {
-  color: #2563eb;
+  color: #412e66;
   cursor: pointer;
   font-weight: bold;
 }
+
