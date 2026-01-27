@@ -31,7 +31,9 @@ const App = () => {
 
       <main className="content">
         <header className="header">
-          <h1>React TypeScript Admin-Panel</h1><br/><hr/>
+          <h1>React TypeScript Admin-Panel</h1>
+          <button className="adp">Admin</button>
+          <br/><hr/>
         </header>
 
         <Routes>

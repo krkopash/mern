@@ -50,7 +50,7 @@ const Profile = () => {
 
 
           <label>Any suggestion:</label>
-          <textarea name="message" rows={5} cols={5} placeholder="Start From Here..." required>
+          <textarea name="message" rows={3} cols={5} placeholder="Start From Here..." required>
           </textarea>
 
           <button type="submit" className="buttontodo">
@@ -60,7 +60,6 @@ const Profile = () => {
           
         </form>
 
-        
       </div>
     </div>
       

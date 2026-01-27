@@ -1,12 +1,9 @@
 import { useState } from "react";
 import "./router.css";
-
-
 type FormData = {
     email: string;
     password: string;
-    fname: string;
-    lname: string;
+    name: string;
 };
 
 const Auth = () => {
@@ -15,15 +12,13 @@ const Auth = () => {
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
-    fname:"",
-    lname:"",
+    name:"",
   });
 
   const [errors, setErrors] = useState<FormData>({
     email: "",
     password: "",
-    fname:"",
-    lname:"",
+    name:"",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,14 +30,14 @@ const Auth = () => {
 
   const validate = (): boolean =>{
     let valid = true;
-    const newErrors: FormData = { email: "", password: "", fname:"", lname:""};
+    const newErrors: FormData = { email: "", password: "", name:""};
 
     if(!formData.email.includes("@")){
     newErrors.email = "enter valid email address";
     valid = false;
 
-    if(formData.fname.length>3){
-      newErrors.fname="enter valid name";
+    if(formData.name.length>3){
+      newErrors.name="enter valid name";
       valid= false;
     }
   }
@@ -60,8 +55,8 @@ const Auth = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
-      alert(isLogin ? "Login Successful ✅" : "Signup Successful 🎉");
-      setFormData({ email: "", password: "" , fname: "", lname: ""});
+      alert(isLogin ? "Login Successful!!! ✔" : "Signup Successful!!! 💥");
+      setFormData({ email: "", password: "" , name: ""});
     }
   };
 
@@ -75,11 +70,8 @@ const Auth = () => {
        
 
             
-            <label>First Name:</label>
-          <input type="text" name="fname" value={formData.fname} onChange={handleChange} placeholder="first name" required/>
-
-          <label> Last Name:</label>
-          <input type="text" name="lname" value={formData.lname} onChange={handleChange} placeholder="Last name" required/>
+            <label>User Name:</label>
+          <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="User name" required/>
 
           <label>Email: </label>
           <input type="text" placeholder="abc@gmail.com" name="email" value={formData.email} onChange={handleChange} required/>
@@ -89,7 +81,7 @@ const Auth = () => {
           <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="**********" required/>
           {errors.password && (
             <span className="error">{errors.password}</span>
-          )}
+          )} 
 
           <button type="submit" className="buttontodo">
             {isLogin ? "Login" : "Signup"}

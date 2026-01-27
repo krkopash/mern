@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BarChart, Bar, XAxis,CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis,CartesianGrid, ResponsiveContainer } from "recharts";
 
 type ChartData ={
     name: string,
@@ -25,8 +25,6 @@ const Charts : React.FC=()=>{
       <BarChart data={data}>
         <CartesianGrid/>
         <XAxis dataKey="name" />
-        
-        <Tooltip />
         <Bar dataKey="value" fill="#b4ccf5" />
       </BarChart>
     </ResponsiveContainer>

@@ -17,55 +17,34 @@ function ToDo() {
 
     const handleFormSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-
-        // check if the value is empty
         if (task.trim().length === 0) {
             alert("Please enter a value!");
             return;
         }
 
-        // if(task === Todo.task){
-        //     alert("can not add same task twice");
-        //     return;
-
-        // }
-
-        // create a new todo
         const todo: Todo = {
             id: Date.now(),
             task: task,
             isCompleted: false,
         };
 
-        // add todo to the state
         setTodos([todo, ...todos]);
 
-        // clear the value of task
-        setTask("");
     };
 
     const handleChangeChecked = (todo: Todo) => {
-        // index of the todo
         const index = todos.indexOf(todo);
-
-        // change todo completed status
         todo.isCompleted = !todo.isCompleted;
-
-        // then we need to replace it with one in todos
         todos.splice(index, 1, todo);
-
-        // update the state
+        //updatestate
         setTodos([...todos]);
     };
 
     const handleDelete = (id: number) => {
-        // find index of todo from id
         const index = todos.findIndex((todo) => todo.id === id);
-
-        // remove todo
+        //delete
         todos.splice(index, 1);
-
-        // update the state
+        //update
         setTodos([...todos]);
     };
 
@@ -77,15 +56,12 @@ function ToDo() {
                 <input type="text" name="task" value={task} onChange={handleInput} className="inputtodo" placeholder="Task Title"/>
                 <button type="submit" className="buttontodo">Add Task</button>
             </form><br/>
+
             <ul className="listtodo">
                 {todos.map((todo) => (
                     <li key={todo.id}>
                         {todo.task}
-                        <input className="inputtodo"
-                            type="checkbox"
-                            checked={todo.isCompleted}
-                            onChange={() => handleChangeChecked(todo)}
-                        /><br/><br/>
+                        <input className="inputtodo" type="checkbox" checked={todo.isCompleted} onChange={() => handleChangeChecked(todo)}/><br/><br/>
                         
                     </li>
                 ))}
@@ -96,3 +72,4 @@ function ToDo() {
 }
 
 export default ToDo;
+
