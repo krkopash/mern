@@ -1,4 +1,6 @@
 import { useState } from "react";
+import "./router.css";
+
 
 type FormData = {
     email: string;
@@ -39,7 +41,7 @@ const Auth = () => {
     newErrors.email = "enter valid email address";
     valid = false;
 
-    if(formData.fname.length<3){
+    if(formData.fname.length>3){
       newErrors.fname="enter valid name";
       valid= false;
     }
@@ -89,38 +91,7 @@ const Auth = () => {
             <span className="error">{errors.password}</span>
           )}
 
-          <label>Domain:</label>
-          <select >
-            <option className="op">Web</option>
-            <option className="op">App</option>
-            <option className="op">AI & ML</option>
-          </select>
-
-         <label>Select your favorite color:</label>
-         <input type="color" id="favcolor" name="favcolor" required></input>
-
-         <label>Dateof Birthday:</label>
-         <input type="date" id="birthday" name="birthday" required></input>
-         <label>Select a Time:</label>
-         <input type="time" id="set" name="set" required></input>
-
-         <label>Add your homepage:</label>
-         <input type="url" id="url" name="url" placeholder="www.google.com" required></input>
-
-         <label>Select Your available week of month:</label>
-         <input type="week" id="week" name="week" required></input>
-         
-         <label> Select File:</label>
-         <input type="file" id="myfile" name="myfile" required></input>
-
-         <label>Rate your skills:</label>
-         <input type="number" id="rate" name="rate" min={1} max={5} required></input>
-
-
-          <label>Any suggestion:</label>
-          <textarea name="message" rows={5} cols={5} placeholder="Start From Here">
-          </textarea>
-          <button type="submit">
+          <button type="submit" className="buttontodo">
             {isLogin ? "Login" : "Signup"}
           </button>
           

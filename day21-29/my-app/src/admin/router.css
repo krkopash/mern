@@ -16,16 +16,12 @@ body {
 
 /* Sidebar */
 .sidebar {
-  width: 220px;
+  width: 100%;
   background: #1e293b;
   color: white;
-  padding: 20px;
+  height: 115%;
 }
 
-.logo {
-  
-  text-align: center;
-}
 
 .nav-link {
   display: block;
@@ -42,7 +38,7 @@ body {
 }
 
 .nav-link.active {
-  background: #b7bbc2;
+  background: #387aec;
   color: white;
 }
 
@@ -76,17 +72,18 @@ body {
   border-radius: 10px;
   flex: 1;
   text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.6);
 }
 
 .card:hover {
-  background-color:#cbd5e1;
+  background-color:#f0f2f5;
+  box-shadow: 0 2px 5px rgba(0,0,0,1);
 }
 
 .card p {
   font-size: 24px;
   margin-top: 10px;
-  color: #b36feb;
+  color: #387aec;
 }
 
 /* Profile */
@@ -96,6 +93,7 @@ body {
   border-radius: 10px;
   width: 300px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  
 }
 
 /* Auth Forms */
@@ -106,7 +104,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   margin:auto;
-  justify-content: center;
+  
 }
 
 .auth-card:hover{
@@ -132,19 +130,15 @@ body {
 .auth-card button {
   margin-top: 20px;
   padding: 12px;
-  background: #09053f;
+  background: #387aec;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
 }
 
-.auth-card button:hover {
-  background: #544bca;
-}
-
 .error {
-  color: rgb(106, 36, 128);
+  color: rgb(199, 34, 34);
   font-size: 12px;
   margin-top: 4px;
 }
@@ -160,3 +154,42 @@ body {
   font-weight: bold;
 }
 
+
+.buttontodo{
+  margin: 5px 10px;
+  padding: 5px 40px;
+  background: #387aec;
+  color: white;
+  border-radius: 20px;
+}
+
+.maintodo{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  margin: 5px 600px;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.6);
+}
+
+.inputtodo{
+  margin: 5px 10px;
+  padding: 5px 10px;
+  text-align: left;
+
+}
+ul{
+  list-style-type: none;
+  
+}
+
+.listtodo{
+  text-align: left;
+}
+
+.maintodo:hover{
+  background-color: #f0f2f5;
+  box-shadow: 0 2px 5px rgba(0,0,0,1);
+}
