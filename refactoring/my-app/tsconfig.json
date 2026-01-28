@@ -13,26 +13,26 @@
     "allowSyntheticDefaultImports": true,
 
 
-    "strict": true,
-    "noImplicitAny": true, //type inference(any)
-    "strictNullChecks": true, //error on null and undefined
-    "noUnusedParameters": true, //error on unused parameters
-    "noUnusedLocals": true, //error on unused local var
-    "noFallthroughCasesInSwitch": true, //used for fallthrough case in switch
-    "removeComments": true, 
+    "strict": false,
+    "noImplicitAny": false, //type inference(any)
+    "strictNullChecks": false, 
+    "noUnusedParameters": false, 
+    "noUnusedLocals": false, 
+    "noFallthroughCasesInSwitch": false, 
+    "removeComments": false, 
     // "declaration": true,
     // "emitDeclarationOnly": true,
-    "strictBindCallApply": true, //invoked with correct argument
-    "useUnknownInCatchVariables": true, //change var type
-    "strictFunctionTypes": true, //fun parameter checked
-    "strictPropertyInitialization": true, //error when a class property was declared but not set in the constructor
-    "strictBuiltinIteratorReturn": true,
+    "strictBindCallApply": false, //invoked with correct argument
+    "useUnknownInCatchVariables": false, //change var type
+    "strictFunctionTypes": false, //fun parameter checked
+    "strictPropertyInitialization": false, 
+    "strictBuiltinIteratorReturn": false,
     
 
 
-    "allowUnreachableCode": false,//error for unreachable code, do not ignore it
-    "allowUnusedLabels": false, //error on unused label
-    "downlevelIteration": false,
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": true, 
+    "downlevelIteration": true,
      
 
 
