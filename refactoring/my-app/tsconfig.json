@@ -1,24 +1,44 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
+    "allowJs": true, //used js file
+    "checkJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    
-    
-    "strict": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "strictNullChecks": true,
 
+
+    "strict": true,
+    "noImplicitAny": true, //type inference(any)
+    "strictNullChecks": true, //error on null and undefined
+    "noUnusedParameters": true, //error on unused parameters
+    "noUnusedLocals": true, //error on unused local var
+    "noFallthroughCasesInSwitch": true, //used for fallthrough case in switch
+    "removeComments": true, 
+    // "declaration": true,
+    // "emitDeclarationOnly": true,
+    "strictBindCallApply": true, //invoked with correct argument
+    "useUnknownInCatchVariables": true, //change var type
+    "strictFunctionTypes": true, //fun parameter checked
+    "strictPropertyInitialization": true, //error when a class property was declared but not set in the constructor
+    "strictBuiltinIteratorReturn": true,
+    
+
+
+    "allowUnreachableCode": false,//error for unreachable code, do not ignore it
+    "allowUnusedLabels": false, //error on unused label
+    "downlevelIteration": false,
+     
+
+
+    // "skipDefaultLibCheck": false,
+    "outDir": "./src",
+    "rootDir": "./src",
     
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
@@ -30,5 +50,9 @@
   },
   "include": [
     "src"
+  ],
+
+  "exclude": [
+    "node_modules"
   ]
 }

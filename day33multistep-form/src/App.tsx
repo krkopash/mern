@@ -3,7 +3,7 @@ import StepOne from "./components/StepOne";
 import StepTwo from "./components/StepTwo";
 import StepThree from "./components/StepThree";
 import type { FormData } from "./types/FormTypes";
-import { BrowserRouter as Router, Route, Link, NavLink, BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router, Routes as routes,  Route, Link, NavLink, BrowserRouter } from "react-router-dom";
 
 const App = () => {
   const [step, setStep] = useState(1);
@@ -27,10 +27,11 @@ const App = () => {
       <NavLink to="stepthree"> stepthree</NavLink>
 
       <BrowserRouter>
-      <routes>
-        <Route path="/" element{<StepOne/>} />
-        <Route path="/steptwo" element{<StepTwo/>} />
-      </routes>
+      {/* <routes> */}
+        {/* <Route path="/" element={<StepOne>}</StepOne>/> */}
+        <Route path="/" element={<StepOne/>}></Route>
+        <Route path="/steptwo" element={<StepTwo/>} />
+      {/* </routes> */}
       </BrowserRouter>
       <h1>Advanced Multi-Step Form</h1>
 
