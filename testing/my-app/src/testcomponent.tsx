@@ -2,17 +2,14 @@ import { useState, useCallback } from "react";
 
 const TestComp = () => {
 
-  // function Greeting({named}: {named:string})
-
   return (
     <div>
-
         <h4 className="test">hello</h4>
         <label htmlFor="username">username</label>
-        <input placeholder="enter name" id="username" value="name"/>
+        <input placeholder="enter name" id="username" value="name" readOnly/>
         <button > submit</button>
 
-        {/* <p>hello,{named}</p> */}
+        
     </div>
   );
 };

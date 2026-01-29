@@ -1,18 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import TestComp from "./testcomponent";
 import userEvent from "@testing-library/user-event";
-// import theme from './theme';
 
-// const{ container }= render(<TestComp/>);
-// const testElement=container.querySelector('.test');
-// expect (testElement).toBeInTheDocument();
 
 test('it should work!!!!!!!!!', ()=>{
-    // render(<div>
-    //     <p>hello</p>
-    //     <input placeholder="name"/>
-    // </div>);
-    // expect (screen.getByPlaceholderText(/name/i)).toBeInTheDocument();
     render(<TestComp/>);
     expect (screen.getByText(/hello/i)).toBeInTheDocument();
     expect (screen.getByPlaceholderText(/enter name/i)).toBeInTheDocument();
@@ -21,8 +12,8 @@ test('it should work!!!!!!!!!', ()=>{
     const heading=screen.getByRole('heading', {name:/hello/i,level:4});
     expect(heading).toBeInTheDocument();
 
-    // const input=screen.getByLabelText(/username/i);
-    // expect(input).toBeInTheDocument();
+    const input=screen.getByLabelText(/username/i);
+    expect(input).toBeInTheDocument();
 
     expect(screen.getByDisplayValue(/name/i)).toBeInTheDocument();
 
@@ -30,17 +21,6 @@ test('it should work!!!!!!!!!', ()=>{
     const newb=screen.getByRole('button', {name: /submit/i});
     userEvent.click(newb);
     expect(screen.getByText(/submit/i)).toBeInTheDocument();
-
-    // const input2=screen.getByPlaceholderText(/enter name/i);
-    // userEvent.type(input2, 'hello');
-    // expect(input2).toHaveValue('hello');
-
-    // test.only('only this', ()=>{
-    //     expect(true).toBe(true);
-    // });
-    // test.skip('skip this', ()=>{
-    //     expect(false).toBe(false);
-    // });
     
     
     screen.debug();
