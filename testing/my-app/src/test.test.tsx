@@ -1,7 +1,6 @@
 import Test from "./test";
-import { prettyDOM, render, screen, fireEvent, act } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { waitFor } from "@testing-library/react";
+import { prettyDOM, render, screen } from "@testing-library/react";
+
 
 //getByText
 test('it should work!!', ()=>{
@@ -55,7 +54,7 @@ test('work!',()=>{
         expect(screen.getByDisplayValue(/nameuser/i)).toBeInTheDocument();
 
         //getbyalttext
-        expect(screen.getByAltText(/image/i)).toBeInTheDocument();
+        expect(screen.getByAltText(/ge/i)).toBeInTheDocument();
         //getallbytest-multiple
         expect(screen.getAllByText(/name/i)).toHaveLength(2);
         //getbytitle
