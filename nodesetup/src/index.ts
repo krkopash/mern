@@ -1,7 +1,6 @@
 import  express, {Request, Response}  from "express";
 import http from 'http';
 
-const port=process.env.PORT||3000;
 const app=express();
 //5000
 app.get('/', (req: Request, res: Response) => {
@@ -10,14 +9,16 @@ app.get('/', (req: Request, res: Response) => {
     {PORT: '5000'},] );
 });
 
+
 app.listen(5000, () => {
-  console.log(`Server running on port 5000`);
+  console.log(`Server runninggggg`);
 });
 
 //3000
+const port=process.env.PORT||3000;
 const server = http.createServer((req,res)=>{
-    // res.statusCode=300;
-    // res.setHeader('Content', 'text/plain');
+
+    res.setHeader('Content', 'text/plain');
     res.end(`server running on port ${port}`);
 });
 

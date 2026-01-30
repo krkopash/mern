@@ -5,7 +5,7 @@ const PORT: number = 3000;
 
 app.get('/api/users', (req: Request, res: Response) => {
   res.json({
-    message: 'Node.js + TypeScript server',
+    "message":"Node.js + TypeScript server is running 🚀",
   });
 });
 
