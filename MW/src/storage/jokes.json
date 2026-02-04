@@ -1,0 +1,30 @@
+{
+  "jokes": [
+    {
+      "id": 1770144994177,
+      "title": "helloooooooo",
+      "user": "admin"
+    }
+  ],
+  "activity": {
+    "admin1": [
+      "🆕 You created a joke",
+      "🗑️ You deleted a joke"
+    ],
+    "admin": [
+      "🆕 You created a joke",
+      "🆕 You created a joke",
+      "🆕 You created a joke",
+      "🗑️ You deleted a joke",
+      "🗑️ You deleted a joke",
+      "🆕 You created a joke",
+      "🆕 You created a joke",
+      "🗑️ You deleted a joke",
+      "🆕 You created a joke"
+    ],
+    "s": [
+      "🗑️ You deleted a joke",
+      "🗑️ You deleted a joke"
+    ]
+  }
+}
