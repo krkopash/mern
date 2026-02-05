@@ -19,11 +19,11 @@ export const activityLogger = (
     }
 
     store.activity[user].push(
-      `${req.method} ${req.originalUrl} (${res.statusCode})`
+      `${req.method} ${req.originalUrl}`
     );
 
     writeStore(store);
   });
 
-  next();
+  next(); 
 };

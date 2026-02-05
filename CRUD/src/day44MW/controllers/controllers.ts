@@ -10,5 +10,5 @@ _req: Request, res: Response) => {
 export const createJoke = (req: Request, res: Response) => {
   const { title, user } = req.body;
   const joke = jokeService.addJoke(title, user);
-  res.status(200).json(joke);
+  res.json(joke);
 };

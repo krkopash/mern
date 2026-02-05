@@ -1,4 +1,40 @@
 {
-  "jokes": [  ],
-  "activity": {  }
+  "jokes": [
+    {
+      "id": 1770271966055,
+      "title": "add",
+      "user": "admin1"
+    },
+    {
+      "id": 1770272018701,
+      "title": "add",
+      "user": "admin1"
+    },
+    {
+      "id": 1770272037308,
+      "title": "add",
+      "user": "admin1"
+    }
+  ],
+  "activity": {
+    "undefined": [
+      "GET /",
+      "GET /login",
+      "GET /favicon.ico",
+      "POST /login"
+    ],
+    "admin1": [
+      "GET /",
+      "✔ You created a joke",
+      "POST /add",
+      "GET /",
+      "GET /",
+      "✔ You created a joke",
+      "POST /add",
+      "GET /",
+      "✔ You created a joke",
+      "POST /add",
+      "GET /"
+    ]
+  }
 }
