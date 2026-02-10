@@ -19,7 +19,7 @@ app.get("/user/:name/:email", async (req, res) => {
     res.json(user);
   } catch (err) {
     console.error(err);
-    res.status(500).json({
+    res.status(404).json({
       message: "Error creating user",
       error: err.message
     });

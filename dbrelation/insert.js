@@ -43,6 +43,7 @@ async function insertData(){
         const order=db.collection("orders");
         await order.insertMany(orders);
 
+
         const product=db.collection("products");
         await product.insertMany(products);
         console.log("done");

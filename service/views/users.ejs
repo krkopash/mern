@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Users</title>
+</head>
+<body style="text-align: center; background-color: rgb(0, 8, 20); color: aliceblue;" >
+
+<h2>Add User</h2>
+
+<form action="/api/users" method="POST">
+  <input name="name" placeholder="Name"  style="padding: 5px;"/>
+  <input name="email" placeholder="Email"  style="padding: 5px;"/>
+  <button type="submit" style="padding: 5px;">Add</button>
+</form>
+
+<hr>
+
+<h2>Users List</h2>
+
+<ul style="list-style-type:none;">
+  <% users.forEach(u => { %>
+    <li>
+      <form action="/api/users/update" method="POST" style="display:inline;">
+        <input type="hidden" name="id" value="<%= u.id %>" />
+        <input name="name" value="<%= u.name %>" style="padding: 5px;"/>
+        <input name="email" value="<%= u.email %>" style="padding: 5px;" />
+        
+        <button type="submit" style="padding: 5px; background-color: cadetblue;">Update</button>
+      </form>
+
+      <a style="padding: 5px; background-color: brown; color: aliceblue; text-decoration-line: none;" 
+      href="/api/users/delete/<%= u.id %>">Delete</a>
+    </li>
+  <% }) %>
+</ul>
+
+</body>
+</html>
