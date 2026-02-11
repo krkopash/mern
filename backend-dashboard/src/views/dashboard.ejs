@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <style>
+    
+    
+
+    body {
+      font-family: Arial;
+      background: #e9edf1;
+      margin: 0;
+      padding: 20px;
+    }
+    table{
+      width: 100%;
+      margin-top: 30px;
+      border-collapse: collapse;
+    }
+    th,td{
+      border-bottom: 1px solid  #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+.cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 5px;
+    }
+    .card h2 {
+      margin: 10px 0;
+    }
+    th {
+      background: #051729; 
+      color: white;
+    }
+    
+  </style>
+</head>
+<body>
+
+<h3>User info</h3>
+
+<div class="cards">
+  <div class="card">
+    <h4>Total Users</h4>
+    <h2><%= stats.totalUsers %></h2>
+  </div>
+  <div class="card">
+    <h4>Active Users</h4>
+    <h2><%= stats.activeUsers %></h2>
+  </div>
+  <div class="card">
+    <h4>Deleted Users</h4>
+    <h2><%= stats.deletedUsers %></h2>
+  </div>
+  <div class="card">
+    <h4>Recent (7 days)</h4>
+    <h2><%= stats.recentUsers %></h2>
+  </div>
+</div>
+
+<h3>Latest Users</h3>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Created At</th>
+    <th>Updated At</th>
+  </tr>
+
+  <% stats.latestUsers.forEach(user => { %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= new Date(user.createdAt).toLocaleDateString() %></td>
+      <td><%= new Date(user.updatedAt).toLocaleDateString() %></td>
+    </tr>
+  <% }) %>
+</table>
+
+</body>
+</html>
