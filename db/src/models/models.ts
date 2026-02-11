@@ -5,4 +5,4 @@ const todoSchema = new Schema({
   text: String,
 });
 
-export default model("Todo", todoSchema);
+export default model("New", todoSchema);
