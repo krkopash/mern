@@ -1,11 +1,79 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
   <title>Admin Dashboard</title>
   <style>
-    
-    
-
+    body {
+      font-family: Arial;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); 
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .card h2 {
+      margin: 10px 0;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      background: white;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background: #051729;
+      color: white;
+    }
+    .search-box {
+      margin-top: 25px;
+      display: flex;
+      gap: 10px;
+    }
+    .search-box input {
+      padding: 8px;
+      width: 250px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 8px 14px;
+      background: #051729;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .pagination {
+      margin-top: 20px;
+    }
+    .pagination a {
+      padding: 8px 12px;
+      margin-right: 6px;
+      text-decoration: none;
+      background: #ddd;
+      border-radius: 4px;
+    }
+    .pagination a.active {
+      background: #051729;
+      color: #fff;
+    }
     body {
       font-family: Arial;
       background: #e9edf1;
@@ -41,51 +109,96 @@
       background: #051729; 
       color: white;
     }
-    
   </style>
 </head>
 <body>
 
-<h3>User info</h3>
+<h1>User info</h1>
+<a href="http://localhost:3000/users/new">
+<button method="GET" style="margin-bottom: 15px; margin-left: 95%;">Add</button>
+</a>
+
+
 
 <div class="cards">
   <div class="card">
     <h4>Total Users</h4>
-    <h2><%= stats.totalUsers %></h2>
+    <h2><%= getDashboardStats.totalUsers %></h2>
   </div>
+
   <div class="card">
     <h4>Active Users</h4>
-    <h2><%= stats.activeUsers %></h2>
+    <h2><%= getDashboardStats.activeUsers %></h2>
   </div>
+
   <div class="card">
-    <h4>Deleted Users</h4>
-    <h2><%= stats.deletedUsers %></h2>
+    <h4>Deleted</h4>
+    <h2><%= getDashboardStats.deletedUsers %></h2>
   </div>
+
   <div class="card">
     <h4>Recent (7 days)</h4>
-    <h2><%= stats.recentUsers %></h2>
+    <h2><%= getDashboardStats.recentUsers %></h2>
   </div>
+
+  <div class="card">
+    <h4>permanentlyDeletedUsers</h4>
+    <h2><%= getDashboardStats.permanentlyDeletedUsers %></h2>
+  </div>
+
+  
 </div>
 
-<h3>Latest Users</h3>
+
+
+<form method="GET" action="/admin/dashboard" class="search-box">
+  <input type="text" name="search" placeholder="Search by name or email" value="<%= getDashboardStats.search %>" />
+  <button type="submit">check</button>
+</form>
+
+
+
+<h2> Latest Users</h2>
 
 <table>
   <tr>
     <th>Name</th>
     <th>Email</th>
-    <th>Created At</th>
-    <th>Updated At</th>
+    <th>Created</th>
+    <th>Updated</th>
+    <th>edit</th>
   </tr>
 
-  <% stats.latestUsers.forEach(user => { %>
+  <% getDashboardStats.users.forEach(user => { %>
     <tr>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
       <td><%= new Date(user.createdAt).toLocaleDateString() %></td>
-      <td><%= new Date(user.updatedAt).toLocaleDateString() %></td>
+      <td><%=new Date(user.updatedAt).toLocaleDateString()%></td>
+      <td>
+      
+        <a href="http://localhost:3000/users">edit</a>
+      </td>
     </tr>
   <% }) %>
 </table>
+
+
+<div class="pagination">
+  
+  <% for (let i = 1; i <= getDashboardStats.totalPage; i++) { %>
+    
+    <a
+      href="/admin/dashboard?page=<%= i %>&search=<%= getDashboardStats.search %>"
+      class="<%= i === getDashboardStats.currentPage ? 'active' : '' %>"
+    >
+      <%= i %>
+    </a> 
+
+  <% } %> 
+</div>
+<div>
+</div>
 
 </body>
 </html>

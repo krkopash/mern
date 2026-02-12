@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); /* 5 cards now */
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .card h2 {
+      margin: 10px 0;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      background: white;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background: #222;
+      color: white;
+    }
+    .search-box {
+      margin-top: 25px;
+      display: flex;
+      gap: 10px;
+    }
+    .search-box input {
+      padding: 8px;
+      width: 250px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    .search-box button {
+      padding: 8px 14px;
+      background: #222;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .pagination {
+      margin-top: 20px;
+    }
+    .pagination a {
+      padding: 8px 12px;
+      margin-right: 6px;
+      text-decoration: none;
+      background: #ddd;
+      color: #000;
+      border-radius: 4px;
+    }
+    .pagination a.active {
+      background: #222;
+      color: #fff;
+    }
+    body {
+      font-family: Arial;
+      background: #e9edf1;
+      margin: 0;
+      padding: 20px;
+    }
+    table{
+      width: 100%;
+      margin-top: 30px;
+      border-collapse: collapse;
+    }
+    th,td{
+      border-bottom: 1px solid  #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+.cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 5px;
+    }
+    .card h2 {
+      margin: 10px 0;
+    }
+    th {
+      background: #051729; 
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<h1>User info</h1>
+
+
+<div class="cards">
+  <div class="card">
+    <h4>Total Users</h4>
+    <h2><%= stats.totalUsers %></h2>
+  </div>
+
+  <div class="card">
+    <h4>Active Users</h4>
+    <h2><%= stats.activeUsers %></h2>
+  </div>
+
+  <div class="card">
+    <h4>Soft Deleted</h4>
+    <h2><%= stats.deletedUsers %></h2>
+  </div>
+
+  <div class="card">
+    <h4>New (7 days)</h4>
+    <h2><%= stats.recentUsers %></h2>
+  </div>
+
+  <div class="card">
+    <h4>Permanent Deleted</h4>
+    <h2><%= stats.permanentlyDeletedUsers %></h2>
+  </div>
+</div>
+
+
+
+<form method="GET" action="/admin/dashboard" class="search-box">
+  <input
+    type="text"
+    name="search"
+    placeholder="Search by name or email"
+    value="<%= stats.search %>"
+  />
+  <button type="submit">Search</button>
+</form>
+
+
+
+<h2> Latest Users</h2>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Created At</th>
+  </tr>
+
+  <% stats.users.forEach(user => { %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= new Date(user.createdAt).toLocaleDateString() %></td>
+    </tr>
+  <% }) %>
+</table>
+
+
+<div class="pagination">
+  <% for (let i = 1; i <= stats.totalPages; i++) { %>
+    <a
+      href="/admin/dashboard?page=<%= i %>&search=<%= stats.search %>"
+      class="<%= i === stats.currentPage ? 'active' : '' %>"
+    >
+      <%= i %>
+    </a>
+  <% } %>
+</div>
+
+</body>
+</html>

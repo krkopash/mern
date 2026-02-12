@@ -5,6 +5,7 @@
     body{
       justify-content: center;
       text-align: center;
+      font-family: Arial;
       padding: 10px;
     }
     ul{
@@ -12,26 +13,54 @@
     }
     a{
       text-decoration: none;
-      background-color: rgb(180, 230, 231);
+      background-color: rgb(214, 239, 240);
       
  
       padding: 4px;
       color: black;
     }
+    th,td{
+      padding-right: 10px;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      background: white;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background: #051729;
+      color: white;
+    }
   </style>
 </head>
   <body>
     <h2>Users</h2>
-<a href="/users/new">Add User</a>
-<ul>
+<a href="/users/new" style="padding: 8px; margin-bottom: 10px;">Add User</a>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+  
+    <th>edit</th>
+    <th>delete</th>
+  </tr>
   <% users.forEach(user => { %>
-    <li>
-      <%= user.name %> - <%= user.email %>
-      <a href="/users/edit/<%= user._id %>">Edit</a>
-      <a href="/users/delete/<%= user._id %>" style="background-color: rgb(238, 101, 101);">Delete</a><br/><br/>
-    </li>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><a href="/users/edit/<%= user._id %>">Edit</a></td>
+      <td><a href="/users/delete/<%= user._id %>" style="background-color: rgb(238, 101, 101);">Delete</a></td>
+      
+    </tr>
   <% }) %>
-</ul>
+</table>
 
   </body>
 </html>
