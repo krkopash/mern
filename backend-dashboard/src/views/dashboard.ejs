@@ -1,9 +1,9 @@
 
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin Dashboard</title>
+  <title>User Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       font-family: Arial;
@@ -11,35 +11,11 @@
       margin: 0;
       padding: 20px;
     }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr); 
-      gap: 20px;
-    }
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .card h2 {
-      margin: 10px 0;
-    }
     table {
       width: 100%;
       margin-top: 20px;
       background: white;
       border-collapse: collapse;
-    }
-    th, td {
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
-      text-align: left;
-    }
-    th {
-      background: #051729;
-      color: white;
     }
     .search-box {
       margin-top: 25px;
@@ -74,17 +50,7 @@
       background: #051729;
       color: #fff;
     }
-    body {
-      font-family: Arial;
-      background: #e9edf1;
-      margin: 0;
-      padding: 20px;
-    }
-    table{
-      width: 100%;
-      margin-top: 30px;
-      border-collapse: collapse;
-    }
+    
     th,td{
       border-bottom: 1px solid  #ddd;
       padding: 10px;
@@ -92,7 +58,7 @@
     }
 .cards {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 20px;
     }
     .card {
@@ -109,56 +75,104 @@
       background: #051729; 
       color: white;
     }
+
+     .charts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    .chart-box {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .chart-box:hover{
+      background-color: #e2e5e9;
+    }
+
   </style>
 </head>
 <body>
 
-<h1>User info</h1>
+<h2 style="text-align: center;">User info</h2><hr/><hr/>
 <a href="http://localhost:3000/users/new">
-<button method="GET" style="margin-bottom: 15px; margin-left: 95%;">Add</button>
+<button method="GET" style="margin-bottom: 15px; margin-left: 95%;"> Add </button>
 </a>
-
-
 
 <div class="cards">
   <div class="card">
-    <h4>Total Users</h4>
+    <h3>Total Users</h3>
     <h2><%= getDashboardStats.totalUsers %></h2>
   </div>
 
   <div class="card">
-    <h4>Active Users</h4>
+    <h3>Active Users</h3>
     <h2><%= getDashboardStats.activeUsers %></h2>
   </div>
 
   <div class="card">
-    <h4>Deleted</h4>
+    <h3>Deleted</h3>
     <h2><%= getDashboardStats.deletedUsers %></h2>
   </div>
 
   <div class="card">
-    <h4>Recent (7 days)</h4>
+    <h3>Recent (7 days)</h3>
     <h2><%= getDashboardStats.recentUsers %></h2>
+  </div>
+ 
+  <div class="card">
+    <h3> Today's users</h3>
+    <h2><%= getDashboardStats.todayUser%></h2>
+  </div>
+  <div class="card">
+    <h3>weekly users</h3>
+    <h2><%= getDashboardStats.weeklyUser%></h2>
+  </div>
+  <div class="card">
+    <h3>Last week's users</h3>
+    <h2><%= getDashboardStats.prevweekUser%></h2>
+  </div>
+  <div class="card">
+    <h3>Monthly users</h3>
+    <h2> <%= getDashboardStats.MonthlyUser%></h2>
   </div>
 
   <div class="card">
-    <h4>permanentlyDeletedUsers</h4>
-    <h2><%= getDashboardStats.permanentlyDeletedUsers %></h2>
+    <h3>Ratio</h3>
+    <h2><%= getDashboardStats.growth.toFixed(2)%> %</h2>
+  </div>
+  <div class="card">
+    <h3>Active / inactive</h3>
+    <h2><%= getDashboardStats.userRatio.active%> / <%= getDashboardStats.userRatio.inactive%></h2>
   </div>
 
-  
 </div>
 
 
 
 <form method="GET" action="/admin/dashboard" class="search-box">
+
+  <input type="date" name="date" value="<%= selectedDate || '' %>"/>
+  <button type="submit">check</button>
+
+ 
+</form>
+<% if (getDashboardStats.usersOnSelectedDate !== null) { %>
+  <h4><hr/>
+     Users created on selected date:
+    <strong><%= getDashboardStats.usersOnSelectedDate %></strong>
+  <hr/></h4>
+<% } %>
+<form method="GET" action="/admin/dashboard" class="search-box">
   <input type="text" name="search" placeholder="Search by name or email" value="<%= getDashboardStats.search %>" />
   <button type="submit">check</button>
+
+ 
 </form>
 
-
-
-<h2> Latest Users</h2>
+<h3> Latest Users</h3><hr/>
 
 <table>
   <tr>
@@ -177,7 +191,7 @@
       <td><%=new Date(user.updatedAt).toLocaleDateString()%></td>
       <td>
       
-        <a href="http://localhost:3000/users">edit</a>
+        <a href="http://localhost:3000/users" style="color: black;">edit</a>
       </td>
     </tr>
   <% }) %>
@@ -199,6 +213,66 @@
 </div>
 <div>
 </div>
+
+<div class="charts">
+  <div class="chart-box">
+    <h3>Users Chart</h3>
+    <canvas id="usersChart"></canvas>
+  </div>
+
+  <div class="chart-box">
+    <h3>Recent Users (Last 7 Days)</h3>
+    <canvas id="growthChart"></canvas>
+  </div>
+</div>
+<script>
+  const usersChart = new Chart(
+    document.getElementById("usersChart"),
+    {
+      type: "bar",
+      data: {
+        labels: ["Total Users", "Active Users", "Deleted Users"],
+        datasets: [{
+          label: "Users",
+          data: [
+            <%= getDashboardStats.totalUsers %>,
+            <%= getDashboardStats.activeUsers %>,
+            <%= getDashboardStats.deletedUsers %>,
+          ],
+          backgroundColor: ["#90EE90", "#ADD8E6", "#FFCCCB"],
+        }]
+      }
+    }
+  );
+
+  const growthChart = new Chart(
+    document.getElementById("growthChart"),
+    {
+      type: "line",
+      borderColor: "red",
+      data: {
+        labels: ["Users on Last week"],
+        datasets: [{
+          label: "Recent Users",
+          data: [<%= getDashboardStats.recentUsers %>],
+          backgroundColor: "red",
+          borderColor: "green",
+          fill: false
+        }]
+      },
+      options: {
+         elements: { 
+          point: {
+            radius:7
+          }
+         
+         },
+         
+        
+      }
+    }
+  );
+</script>
 
 </body>
 </html>

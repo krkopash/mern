@@ -2,17 +2,17 @@ import { Request, Response } from "express";
 import * as userService from "../services/user";
 import User from "../models/model";
 
-export const listUsers = (async (req:Request, res:Response) => {
+export const listUsers = async (req: Request,res: Response) => {
   const page = Number(req.query.page) || 1;
-  const search = req.query.search as string;
-  const users = await userService.getAllUsers(page, 5, search);
-  res.render("users", { users });
-  
-});
+  const limit = 10;
 
+  const users = await userService.getAllUsers(page,limit);
+
+  res.render("users", { users});
+};
 export const showAddForm = (req:Request, res:Response) => {
   res.render("add-user");
-};
+};  
 export const addUser = async (req:Request, res:Response) => {
   const { name, email } = req.body;
   await userService.createUser(name, email);
@@ -29,9 +29,10 @@ export const updateUser = async (req:Request, res:Response) => {
   const { name, email } = req.body;
 
 
-  await userService.updateUser(id, name, email);
+  await userService.updateUser(id, name, email);   
   res.redirect("/users");
 };
+
 
 export const deleteUser = async (req:Request, res:Response) => {
   const id = req.params.id as string;
@@ -42,21 +43,20 @@ export const deleteUser = async (req:Request, res:Response) => {
 
 export const listUsersApi = async (req:Request, res:Response) => {
   const page = Number(req.query.page) || 1;
-  const search = req.query.search as string;
-  
-  const users = await userService.getAllUsers(page, 10, search);
+  const users = await userService.getAllUsers(page, 10);
   res.json(users);
 };
 
-export const permanentDeleteUser = async (req: Request,res: Response) => {
-  const id = req.params.id as string;
-  const user = await User.findById(id);
 
-  if (!user) {
-    return res.status(404).json({
-      message: "User not found"
-    });
-  }
-  await User.findByIdAndDelete(user._id);
-  res.send('deleted');
-};
+// export const permanentDeleteUser = async (req: Request,res: Response) => {
+//   const id = req.params.id as string;
+//   const user = await User.findById(id);
+
+//   if (!user) {
+//     return res.status(404).json({
+//       message: "User not found"
+//     });
+//   }
+//   await User.findByIdAndDelete(user._id);
+//   res.send('deleted');
+// };
