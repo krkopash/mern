@@ -1,103 +1,118 @@
-
 import User from "../models/model";
-import { error } from "node:console";
-// import userdetail from "../models/userdetail";
-
 
 export const getAllUsers = async (
   page: number,
   limit: number,
   search?: string,
-role?: string,
+  role?: string,
   status?: "active" | "deleted",
   startDate?: string,
   endDate?: string,
-  sortOrder: "asc" | "desc" = "desc") =>  {
-    const query: any = {};
-  
-   
-    if (!status) {
-      query.isDeleted = false;
-    }
-  
-    
-    if (search) {
-      query.$or = [
-        { name: { $regex: search, $options: "i" } },
-        { email: { $regex: search, $options: "i" } }
-      ];
-    }
-  
-    if (role) {
-      query.role = role;
-    }
-  
-    if (status === "active") {
-      query.isDeleted = false;
-    }
-  
-    if (status === "deleted") {
-      query.isDeleted = true;
-    }
-  
-  
-    if (startDate || endDate) {
-      query.createdAt = {};
-  
-      if (startDate) {
-        query.createdAt.$gte = new Date(startDate);
-      }
-  
-      if (endDate) {
-        query.createdAt.$lte = new Date(endDate);
-      }
-    }
-  
-    
-    const sortValue = sortOrder === "asc" ? 1 : -1;
-  
-    return await User.find(query)
-      .sort({ createdAt: sortValue })
-      .skip((page - 1) * limit)
-      .limit(limit);
-  };
-  
+  sortOrder: "asc" | "desc" = "desc"
+) => {
+  const query: any = {};
 
-export const createUser = async (name: string, email: string) => {  
-  const exists = await User.findOne({ email }); 
+ 
+  if (!status) {
+    query.isDeleted = false;
+  }
+
+  
+  if (search) {
+    query.$or = [
+      { name: { $regex: search, $options: "i" } },
+      { email: { $regex: search, $options: "i" } }
+    ];
+  }
+
+  if (role) {
+    query.role = role;
+  }
+
+  if (status === "active") {
+    query.isDeleted = false;
+  }
+
+  if (status === "deleted") {
+    query.isDeleted = true;
+  }
+
+
+  if (startDate || endDate) {
+    query.createdAt = {};
+
+    if (startDate) {
+      query.createdAt.$gte = new Date(startDate);
+    }
+
+    if (endDate) {
+      query.createdAt.$lte = new Date(endDate);
+    }
+  }
+
+  
+  const sortValue = sortOrder === "asc" ? 1 : -1;
+
+  return await User.find(query)
+    .sort({ createdAt: sortValue })
+    .skip((page - 1) * limit)
+    .limit(limit);
+};
+
+
+
+export const createUser = async (name: string, email: string) => {
+  const exists = await User.findOne({ email });
+
   if (exists) {
-    throw new Error("Email already exists(do not use same email)");
+    throw new Error("Email already exists");
   }
-  if(!email.includes("@") || !email.includes(".")){
-    throw new Error ("Enter valid email id");
-  }
+
+  const user = await User.create({ name, email });
+
   
-
-  const user=await User.create({name, email});
-
-
-
 
   return user;
 };
+
+
 
 export const getUserById = async (id: string) => {
   const user = await User.findById(id);
+
   if (!user || user.isDeleted) {
     throw new Error("User not found");
   }
+
   return user;
 };
 
-export const updateUser = async ( id: string,name: string,email: string)=> {   
+
+
+export const updateUser = async (
+  id: string,
+  name: string,
+  email: string
+) => {
   return await User.findByIdAndUpdate(
     id,
     { name, email },
     { new: true }
-  );    
+  );
 };
 
+
+
 export const deleteUser = async (id: string) => {
-  const user= await User.findByIdAndUpdate(id, { isDeleted: true }, {new:true});
+  const user = await User.findByIdAndUpdate(
+    id,
+    {
+      isDeleted: true,
+      deletedAt: new Date()
+    },
+    { new: true }
+  );
+
+  
   return user;
 };

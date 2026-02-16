@@ -96,7 +96,7 @@
 </head>
 <body>
 
-<h2 style="text-align: center;">User info</h2><hr/><hr/>
+<h2 style="text-align: center;">User Info</h2><hr/><hr/>
 <a href="http://localhost:3000/users/new">
 <button method="GET" style="margin-bottom: 15px; margin-left: 95%;"> Add </button>
 </a>
@@ -113,29 +113,29 @@
   </div>
 
   <div class="card">
-    <h3>Deleted</h3>
+    <h3>Deleted Users</h3>
     <h2><%= getDashboardStats.deletedUsers %></h2>
   </div>
 
   <div class="card">
-    <h3>Recent (7 days)</h3>
+    <h3>Recent Users(7 days)</h3>
     <h2><%= getDashboardStats.recentUsers %></h2>
   </div>
  
   <div class="card">
-    <h3> Today's users</h3>
+    <h3>Today's Users</h3>
     <h2><%= getDashboardStats.todayUser%></h2>
   </div>
   <div class="card">
-    <h3>weekly users</h3>
+    <h3>Weekly Users</h3>
     <h2><%= getDashboardStats.weeklyUser%></h2>
   </div>
   <div class="card">
-    <h3>Last week's users</h3>
+    <h3>Last Week's Users</h3>
     <h2><%= getDashboardStats.prevweekUser%></h2>
   </div>
   <div class="card">
-    <h3>Monthly users</h3>
+    <h3>Monthly Users</h3>
     <h2> <%= getDashboardStats.MonthlyUser%></h2>
   </div>
 
@@ -144,7 +144,7 @@
     <h2><%= getDashboardStats.growth.toFixed(2)%> %</h2>
   </div>
   <div class="card">
-    <h3>Active / inactive</h3>
+    <h3>Active / Inactive</h3>
     <h2><%= getDashboardStats.userRatio.active%> / <%= getDashboardStats.userRatio.inactive%></h2>
   </div>
 
@@ -155,7 +155,7 @@
 <form method="GET" action="/admin/dashboard" class="search-box">
 
   <input type="date" name="date" value="<%= selectedDate || '' %>"/>
-  <button type="submit">check</button>
+  <button type="submit">Check</button>
 
  
 </form>
@@ -167,12 +167,12 @@
 <% } %>
 <form method="GET" action="/admin/dashboard" class="search-box">
   <input type="text" name="search" placeholder="Search by name or email" value="<%= getDashboardStats.search %>" />
-  <button type="submit">check</button>
+  <button type="submit">Check</button>
 
  
 </form>
 
-<h3> Latest Users</h3><hr/>
+<h3>Latest Users</h3><hr/>
 
 <table>
   <tr>
@@ -180,7 +180,7 @@
     <th>Email</th>
     <th>Created</th>
     <th>Updated</th>
-    <th>edit</th>
+    <th>Edit</th>
   </tr>
 
   <% getDashboardStats.users.forEach(user => { %>
@@ -191,7 +191,7 @@
       <td><%=new Date(user.updatedAt).toLocaleDateString()%></td>
       <td>
       
-        <a href="http://localhost:3000/users" style="color: black;">edit</a>
+        <a href="http://localhost:3000/users" style="color: black;">Edit</a>
       </td>
     </tr>
   <% }) %>
