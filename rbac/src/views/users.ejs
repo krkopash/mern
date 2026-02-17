@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Users</title>
+</head>
+<body>
+
+<h2>User Management</h2>
+
+<form method="GET" action="/admin/users">
+  <input type="text" name="search" placeholder="Search users..." />
+  <button type="submit">Search</button>
+</form>
+
+<br />
+
+<table border="1" cellpadding="10">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Role</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+
+  <% users.forEach(user => { %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.role %></td>
+      <td><%= user.isDeleted ? "Deleted" : "Active" %></td>
+      <td>
+
+        <form action="/admin/users/<%= user._id %>/role" method="POST" style="display:inline;">
+          <select name="role">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+          <button type="submit">Update</button>
+        </form>
+
+        <% if (!user.isDeleted) { %>
+          <form action="/admin/users/<%= user._id %>/delete" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        <% } else { %>
+          <form action="/admin/users/<%= user._id %>/restore" method="POST" style="display:inline;">
+            <button type="submit">Restore</button>
+          </form>
+        <% } %>
+
+      </td>
+    </tr>
+  <% }) %>
+
+</table>
+
+<br />
+<a href="/admin/dashboard">Back to Dashboard</a>
+
+</body>
+</html>
