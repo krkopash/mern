@@ -5,9 +5,9 @@ export const register = async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
     const user = await authService.registerUser(name, email, password);
-    res.json({ message: "User registered successfully", user,});
+    res.json({ message: "User registered successfully", user, });
   } catch (error: any) {
-    res.status(400).json({ message: error.message });
+    res.json({ message: error.message });
   }
 };
 
@@ -15,17 +15,8 @@ export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
     const data = await authService.loginUser(email, password);
-
     res.json({ message: "Login successful", ...data, });
   } catch (error: any) {
-    res.json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
-
-// export const listUsersApi = (async (req: Request,res: Response) => {
-//   const page = Number(req.query.page) || 1;
-//   const search = req.query.search as string | undefined;
-//   const users = await authService.getAllUsers(page, 10, search);
-
-//   res.json(users);
-// });

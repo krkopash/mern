@@ -7,7 +7,8 @@ const router = express.Router();
 router.post("/transfer", protect, async (req: any, res) => {
   try {
     const { toUserId, amount } = req.body;
-    const result = await transferCredits( req.user.id, toUserId, amount, "ESCROW" );
+
+    const result = await transferCredits( req.user.id, toUserId,amount,"CREDIT");
 
     res.json(result);
   } catch (error: any) {
