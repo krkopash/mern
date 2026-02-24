@@ -48,4 +48,55 @@ export const getServices = async (req: Request, res: Response) => {
 };
 
 
+export const getServiceById=async(req:Request, res:Response)=>{
+  try{
+    const {id}=req.params;
+    const service=await Service.findById(id);
+    if(!service){
+      return res.json({message: "Service not available"});
+    }
+    return res.json({success: true, data: service});
+  } catch (error) {
+    return res.json({success: false, message: "Failed to fetch service"});
+  }
+}
+
+export const updateService=async (req:Request, res:Response)=>{
+  try{
+    const {id}=req.params;
+    const{title, description,category}=req.body;
+    const service=await Service.findByIdAndUpdate(id, {title, description, category}, {new:true});
+    if(!service) {
+      return res.json({message: "service not available"});
+    }
+    return res.json({success:true,data:service});
+  } catch (error) {
+    return res.json({success: false, message: "Failed to update service"});
+  }
+}
+
+export const deleteService=async(req:Request, res:Response)=>{
+  try{
+    const {id}=req.params;
+    const service=await Service.findByIdAndDelete(id);
+    if(!service){
+      return res.json({message: "service not available"});
+    }
+    return res.json({success: true, message: "service deleted successfully"});
+
+    }
+  catch(error){
+    res.send(error);
+  }
+}
+
+export const getAllServices=async(req:Request, res:Response)=>{
+  try{
+    const services=await Service.find();
+    return res.json({data: services});
+  }
+  catch(error){
+    res.send(error);
+  }
+}
 

@@ -9,7 +9,6 @@ const app = express();
 app.use(express.json());
 
 connectDB();
-
 app.use("/api/services", serviceRoutes);
 
 app.listen(5000, () => {
