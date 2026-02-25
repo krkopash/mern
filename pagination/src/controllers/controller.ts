@@ -19,9 +19,6 @@ export const createService = async (req: Request, res: Response) => {
   }
 };
 
-
-
-
 export const getServices = async (req: Request, res: Response) => {
   const { page, limit, search, category, sortBy, order } = req.query;
   const filter: any = {};
