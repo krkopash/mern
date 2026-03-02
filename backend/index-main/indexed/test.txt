@@ -1,0 +1,12 @@
+npx ts-node user.ts
+
+db.users.find({ email: "user40000@gmail.com" })
+.explain("executionStats")
+
+db.users.createIndex({ email: 1 })
+db.users.find({ email: "user40000@gmail.com" })
+.explain("executionStats")
+
+
+router.get("/user/:email", findUserByEmail);
+GET /user/user40000@gmail.com
