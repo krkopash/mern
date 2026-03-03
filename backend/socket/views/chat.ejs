@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h3>Online Users</h3>
+    <ul id="users"></ul>
+    <input id="username" placeholder="Username">
+    <input id="room" placeholder="Room">
+    <button onclick="joinRoom()">Join</button>
+
+
+    <div id="chat" style="height:300px;overflow:auto;border:1px solid"></div>
+    <input id="msg">
+    
+    <button onclick="send()">Send</button>
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <script>
+    const socket = io();
+    let username="";
+    let room="";
+    
+    function joinRoom(){
+      username=document.getElementById("username").value;
+      room=document.getElementById("room").value;
+      socket.emit("join-room",{username,room});
+    }
+    
+    socket.on("old-messages",(messages)=>{
+      const chat=document.getElementById("chat");
+      chat.innerHTML="";
+      messages.forEach(m=>{chat.innerHTML+=` <p id="${m._id}"> - 
+        <b>${m.username}</b>: ${m.message}
+      </p>`;
+  });
+});
+
+socket.on("message",(data)=>{
+  const chat=document.getElementById("chat");
+
+  chat.innerHTML+=` <p id="${data._id}"> - 
+      <b>${data.username}</b>: ${data.message}
+    </p>`;
+
+  socket.emit("message-delivered",{ messageId:data._id,room});
+
+  socket.emit("message-seen",{messageId:data._id,room});
+});
+
+
+function send(){
+  const message=document.getElementById("msg").value;
+
+  socket.emit("send-message",{ username, room, message});
+}
+
+socket.on("online-users",(users)=>{
+  const list=document.getElementById("users");
+  list.innerHTML="";
+
+  users.forEach(u=>{
+    list.innerHTML+=`<li>${u}</li>`;
+  });
+});
+
+socket.on("message-delivered",(data)=>{
+  const msg=document.getElementById(data.messageId);
+  if(msg) msg.innerHTML+=" ✔";
+});
+
+socket.on("message-seen",(data)=>{
+  const msg=document.getElementById(data.messageId);
+  if(msg) msg.innerHTML+=" ✔";
+});
+
+    </script>
+
+  </body>
+</html>
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <h3>Online Users</h3>
+    <ul id="users"></ul>
+    <input id="username" placeholder="Username">
+    <input id="room" placeholder="room">
+    <button onclick="joinRoom()">Join</button>
+    
+    <div id="chat" style="height:300px;overflow:auto;border:1px solid"></div>
+    <input id="msg">
+    <button onclick="send()">Send</button>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <script>
+
+    const socket = io();
+    let username="";
+    let room="";
+    function joinRoom(){
+      username=document.getElementById("username").value;
+    room=document.getElementById("room").value;
+    socket.emit("join-room",{username,room});
+  }
+
+socket.on("old-messages",(messages)=>{
+  const chat=document.getElementById("chat");
+  chat.innerHTML="";
+  messages.forEach(m=>{
+    chat.innerHTML+=`<p><b>${m.username}</b>: ${m.message}</p>`;
+  });
+});
+
+socket.on("message",(data)=>{
+  const chat=document.getElementById("chat");
+
+  if(typeof data==="string"){
+    chat.innerHTML+=`<p>${data}</p>`;
+  }else{
+    chat.innerHTML+= `<p><b>${data.username}</b>: ${data.message}</p>`;
+  }
+});
+
+function send(){
+  const message=document.getElementById("msg").value;
+
+  socket.emit("send-message",{username, room, message});
+}
+
+socket.on("online-users",(users)=>{
+  const list=document.getElementById("users");
+  list.innerHTML="";
+
+  users.forEach(u=>{
+    list.innerHTML+=`<li>- ${u}</li>`;
+  });
+});
+
+socket.on("message-delivered",(data)=>{
+  const msg=document.getElementById(data.messageId);
+  if(msg) msg.innerHTML+=" ✔";
+});
+socket.on("message-seen",(data)=>{
+  const msg=document.getElementById(data.messageId);
+  if(msg) msg.innerHTML+=" ✔✔";
+});
+
+socket.emit("seen-message",{
+  messageId:m._id,
+  room
+});
+</script> 
+
+</body>
+</html> -->
