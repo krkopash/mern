@@ -1,18 +1,16 @@
-import type { Request, Response } from "express";
-import express from "express";
-import logger from "./logger.js";
+import { Router, Request, Response } from "express";
+import winstonLog from "./winston";
 
-import { Router } from "express";
-const router=Router();
+const router = Router();
 
-router.get("/", (req:Request, res:Response)=>{
-    logger.info("fetch all info");
-    res.json({message: "fetched all info"});
-})
+router.get("/", (req: Request, res: Response) => {
+  winstonLog.info("api call");
+  res.json({ message: "api call"});
+});
 
-router.get("/error", (req:Request, res:Response)=>{
-    logger.error("something went wrong");
-    res.json({ message: "something went wrong"});
-})
+router.get("/error", (req: Request, res: Response) => {
+  winstonLog.warn("error");
+  throw new Error("error");
+});
 
 export default router;

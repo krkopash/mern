@@ -1,11 +1,9 @@
 import morgan from "morgan";
-import logger from "./logger.js";
-const stream = {
-  write: (message: string) => {
-    logger.info(message.trim());
-  }
-};
+import winstonLog from "./winston";
 
-const morganMiddleware = morgan( ":method :url :status :response-time ms", {stream });
+const stream = {
+  write: (message: string) => { winstonLog.info(message);}
+};
+const morganMiddleware = morgan( ":method :url :response-time ms", {stream });
 
 export default morganMiddleware;

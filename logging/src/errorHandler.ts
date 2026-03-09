@@ -1,14 +1,12 @@
-import type { Request,Response } from "express";
-import logger from "./logger.js";
+import { Request, Response, NextFunction } from "express";
+import winstonLog from "./winston";
 
-const errorHandler=(err:any, req:Request, res:Response)=>{
-    logger.error("error", {
-        message:err.message,
-        stack: err.stack,
-        url: err.originalUrl,
-        method: req.method
-    });
-    res.json({})
-}
+const errorHandler = (err: any, req: Request,res: Response,next: NextFunction)=> {
+  winstonLog.error("error", { message: err.message,
+    url: req.originalUrl,
+    method: req.method
+  });
+  res.status(404).json({ success: false,message: "Internal Server Error"});
+};
 
 export default errorHandler;

@@ -1,0 +1,33 @@
+npx ts-node src/generateToken.ts
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXIxIiwiaWF0IjoxNzcyOTk2ODczfQ.SL5JGQITt5MVJMjkT2Ip01BkOkUs5dLZwjBLrFwjVfI
+PS C:\Users\A\Desktop\websocket> 
+
+ws://localhost:5000?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXIxIiwiaWF0IjoxNzcyOTk2MzkxfQ.W14mXX6oVYQXZDt_RpWy2WD05oQBvtikOm_fDljDlgI
+
+{
+ "type":"join-room",
+ "room":"general"
+}
+
+{
+ "type":"chat",
+ "message":"Hello everyone"
+}
+
+
+Use Postman.
+Request:
+POST http://localhost:4000/login
+Body:
+{
+  "username": "user1"
+}
+Response:
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+Step 5 — Connect WebSocket
+Use the returned token:
+ws://localhost:5000?token=TOKEN_HERE
+Now authentication works automatically.

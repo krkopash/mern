@@ -17,4 +17,3 @@ describe('SimpleCounter Component', () => {
     expect(screen.getByText(/Counter Value: 1/i)).toBeInTheDocument();
   });
 });
-
