@@ -1,0 +1,26 @@
+<html>
+<head>
+  <style>
+    body{
+      justify-content: center;
+      text-align: center;
+      padding-top: 20px;
+    }
+    input, button{
+      padding: 5px;
+    }
+    button{
+      background-color: rgb(130, 164, 226);
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Edit User</h2>
+<form method="POST" action="/users/update/<%= user._id %>">
+  <input name="name" value="<%= user.name %>" />
+  <input name="email" value="<%= user.email %>" />
+  <button>Update</button>
+</form>
+</body>
+</html>

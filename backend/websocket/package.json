@@ -15,7 +15,6 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.1.0",
-    "mongoose": "^9.2.4",
     "ws": "^8.19.0"
   },
   "devDependencies": {

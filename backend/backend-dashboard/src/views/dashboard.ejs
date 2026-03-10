@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      background: white;
+      border-collapse: collapse;
+    }
+    .search-box {
+      margin-top: 25px;
+      display: flex;
+      gap: 10px;
+    }
+    .search-box input {
+      padding: 8px;
+      width: 250px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 8px 14px;
+      background: #051729;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .pagination {
+      margin-top: 20px;
+    }
+    .pagination a {
+      padding: 8px 12px;
+      margin-right: 6px;
+      text-decoration: none;
+      background: #ddd;
+      border-radius: 4px;
+    }
+    .pagination a.active {
+      background: #051729;
+      color: #fff;
+    }
+    
+    th,td{
+      border-bottom: 1px solid  #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+.cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 5px;
+    }
+    .card h2 {
+      margin: 10px 0;
+    }
+    th {
+      background: #051729; 
+      color: white;
+    }
+
+     .charts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    .chart-box {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .chart-box:hover{
+      background-color: #e2e5e9;
+    }
+
+  </style>
+</head>
+<body>
+
+<h2 style="text-align: center;">User Info</h2><hr/><hr/>
+<a href="http://localhost:3000/users/new">
+<button method="GET" style="margin-bottom: 15px; margin-left: 95%;"> Add </button>
+</a>
+
+<div class="cards">
+  <div class="card">
+    <h3>Total Users</h3>
+    <h2><%= getDashboardStats.totalUsers %></h2>
+  </div>
+
+  <div class="card">
+    <h3>Active Users</h3>
+    <h2><%= getDashboardStats.activeUsers %></h2>
+  </div>
+
+  <div class="card">
+    <h3>Deleted Users</h3>
+    <h2><%= getDashboardStats.deletedUsers %></h2>
+  </div>
+
+  <div class="card">
+    <h3>Recent Users(7 days)</h3>
+    <h2><%= getDashboardStats.recentUsers %></h2>
+  </div>
+ 
+  <div class="card">
+    <h3>Today's Users</h3>
+    <h2><%= getDashboardStats.todayUser%></h2>
+  </div>
+  <div class="card">
+    <h3>Weekly Users</h3>
+    <h2><%= getDashboardStats.weeklyUser%></h2>
+  </div>
+  <div class="card">
+    <h3>Last Week's Users</h3>
+    <h2><%= getDashboardStats.prevweekUser%></h2>
+  </div>
+  <div class="card">
+    <h3>Monthly Users</h3>
+    <h2> <%= getDashboardStats.MonthlyUser%></h2>
+  </div>
+
+  <div class="card">
+    <h3>Ratio</h3>
+    <h2><%= getDashboardStats.growth.toFixed(2)%> %</h2>
+  </div>
+  <div class="card">
+    <h3>Active / Inactive</h3>
+    <h2><%= getDashboardStats.userRatio.active%> / <%= getDashboardStats.userRatio.inactive%></h2>
+  </div>
+
+</div>
+
+
+
+<form method="GET" action="/admin/dashboard" class="search-box">
+
+  <input type="date" name="date" value="<%= selectedDate || '' %>"/>
+  <button type="submit">Check</button>
+
+ 
+</form>
+<% if (getDashboardStats.usersOnSelectedDate !== null) { %>
+  <h4><hr/>
+     Users created on selected date:
+    <strong><%= getDashboardStats.usersOnSelectedDate %></strong>
+  <hr/></h4>
+<% } %>
+<form method="GET" action="/admin/dashboard" class="search-box">
+  <input type="text" name="search" placeholder="Search by name or email" value="<%= getDashboardStats.search %>" />
+  <button type="submit">Check</button>
+
+ 
+</form>
+
+<h3>Latest Users</h3><hr/>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Created</th>
+    <th>Updated</th>
+    <th>Edit</th>
+  </tr>
+
+  <% getDashboardStats.users.forEach(user => { %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= new Date(user.createdAt).toLocaleDateString() %></td>
+      <td><%=new Date(user.updatedAt).toLocaleDateString()%></td>
+      <td>
+        <a href="http://localhost:3000/users/edit/<%=user._id%>" style="color: black;">Edit</a>
+      </td>
+    </tr>
+  <% }) %>
+</table>
+
+
+<div class="pagination">
+  
+  <% for (let i = 1; i <= getDashboardStats.totalPage; i++) { %>
+    
+    <a
+      href="/admin/dashboard?page=<%= i %>&search=<%= getDashboardStats.search %>"
+      class="<%= i === getDashboardStats.currentPage ? 'active' : '' %>"
+    >
+      <%= i %>
+    </a> 
+
+  <% } %> 
+</div>
+<div>
+</div>
+
+<div class="charts">
+  <div class="chart-box">
+    <h3>Users Chart</h3>
+    <canvas id="usersChart"></canvas>
+  </div>
+
+  <div class="chart-box">
+    <h3>Recent Users (Last 7 Days)</h3>
+    <canvas id="growthChart"></canvas>
+  </div>
+</div>
+<script>
+  const usersChart = new Chart(
+    document.getElementById("usersChart"),
+    {
+      type: "bar",
+      data: {
+        labels: ["Total Users", "Active Users", "Deleted Users"],
+        datasets: [{
+          label: "Users",
+          data: [
+            <%= getDashboardStats.totalUsers %>,
+            <%= getDashboardStats.activeUsers %>,
+            <%= getDashboardStats.deletedUsers %>,
+          ],
+          backgroundColor: ["#90EE90", "#ADD8E6", "#FFCCCB"],
+        }]
+      }
+    }
+  );
+
+  const growthChart = new Chart(
+    document.getElementById("growthChart"),
+    {
+      type: "line",
+      borderColor: "red",
+      data: {
+        labels: ["Users on Last week"],
+        datasets: [{
+          label: "Recent Users",
+          data: [<%= getDashboardStats.recentUsers %>],
+          backgroundColor: "red",
+          borderColor: "green",
+          fill: false
+        }]
+      },
+      options: {
+         elements: { 
+          point: {
+            radius:7
+          }
+         
+         },
+         
+        
+      }
+    }
+  );
+</script>
+
+</body>
+</html>
