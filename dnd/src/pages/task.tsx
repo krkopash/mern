@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Time from "./time"
 const Task: React.FC = () => {
- const [time,setTime]=useState();
+ const [time,setTime]=useState(Date.now());
  
  const handleTime=()=>{
   
@@ -9,7 +9,7 @@ const Task: React.FC = () => {
   return (
       <div>
         <p>task</p>
-        <button onClick={handleTime}>add</button>
+        <button onClick={handleTime}>settime</button>
         <form>
                                              
           <label>enter title:</label>

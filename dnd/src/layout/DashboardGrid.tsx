@@ -6,13 +6,8 @@ import Task from "../pages/task"
 import Time from "../pages/time"
 import Notes from "../pages/notes"
 
-const group: Record<string, React.FC> = {
-  task: Task,
-  notes: Notes,
-  clock: Time,
-}
-type WidgetLayout = {
-  i: string
+const group: Record<string, React.FC> = {task: Task, notes: Notes, clock: Time}
+type WidgetLayout = { i: string
   x: number
   y: number
   w: number
@@ -26,8 +21,7 @@ const DashboardGrid: React.FC = () => {
     return saved? JSON.parse(saved) : [{ i: "1", x: 0, y: 0, w: 3, h: 2, type: "clock",},]
   })
 
-  useEffect(() => {
-    localStorage.setItem("layout", JSON.stringify(layout))
+  useEffect(() => { localStorage.setItem("layout", JSON.stringify(layout))
   }, [layout])
 
   const addWidget = (type: string) => {
@@ -63,7 +57,9 @@ const DashboardGrid: React.FC = () => {
 
           setLayout(updatedLayout);
         }}>
-        {layout.map((item) => {
+        
+        {
+        layout.map((item) => {
           const Component = group[item.type]
           return (
             <div key={item.i} style={{ border: "1px solid #ccc",padding: "10px" , position: "relative", }}>
@@ -73,7 +69,5 @@ const DashboardGrid: React.FC = () => {
             </div>)
         })}
       </GridLayout> 
-    </div>
-  )
-}
+    </div>)}
 export default DashboardGrid

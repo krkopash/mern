@@ -63,12 +63,13 @@ export default function Dnd() {
           {`${ group === "noDrop" && noDrop === "noDrop" ? noDrop : "group"}`}
             onDragEnter={(e) => handleDragEnter(e, group)} onDragOver={handleDragOver}   onDragLeave={handleDragLeave}
             onDrop={(e) => handleDrop(e, group)} key={group}>
+               
             <h4 className="title">{group}</h4>
             <div>
-
-
-          {items.filter((item) => item.group === group).map((item) => (
-                  <div key={item.id} id={item.id} className={`${group === "noDrop" && noDrop === "noDrop"? "notAllowed": "item"
+          
+    {
+     items.filter((item) => item.group === group).map((item) => (
+          <div key={item.id} id={item.id} className={`${group === "noDrop" && noDrop === "noDrop"? "notAllowed": "item"
                     }`}  draggable
           onDragStart={(e) => handleDragStart(e, item.id, group)}>
                     {item.value}
