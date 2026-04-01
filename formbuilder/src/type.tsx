@@ -1,17 +1,16 @@
-export type FeildType="text"|"email"|"number"|"textarea"|"checkbox"|"radio"|"select"| "option"|"date"|"file"|"range"|"time";
+export type FieldType="text"|"email"|"number"|"textarea"|"checkbox"|"radio"|"select"| "option"|"date"|"file"|"range"|"time";
 export interface validationRules{
     required: boolean;
     minLength?:number;
     maxLength?:number;
     min?:number;
     max?:number;
-    pattern?:string;
     errMsg?:string;
 
 }
 export interface Field{
     id: string;
-    type: FeildType;
+    type: FieldType;
     label:string; 
     placeholder: string;
     options: string[];

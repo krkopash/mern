@@ -1,7 +1,7 @@
-import type { FeildType } from "../type";
+import type { FieldType } from "../type";
 import { useDrag } from "react-dnd";
 
-const fieldTypes:{type: FeildType; label:string}[]=[
+const fieldTypes:{type: FieldType; label:string}[]=[
     {type:"text", label: "text"},
     {type:"number", label:"number"},
     {type:"email", label:"email"},
@@ -17,7 +17,7 @@ const fieldTypes:{type: FeildType; label:string}[]=[
 ];
 
 
-function DraggableField({ type, label }: { type: FeildType; label: string }) {
+function DraggableField({ type, label }: { type: FieldType; label: string }) {
   const [, drag] = useDrag(() => ({
     type: "FIELD",
     item: {type},

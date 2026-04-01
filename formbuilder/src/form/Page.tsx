@@ -1,7 +1,7 @@
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { store, type RootState } from "../store";
-import type { FeildType } from "../type";
+import type { FieldType } from "../type";
 import { addFeild, removeField, selectField } from "../formSlice";
 import FieldItem from "./FieldItem";
 
@@ -15,7 +15,7 @@ const selId = useSelector((s: RootState) => s.form.selectField);
   const step = steps[idx];
 
   const [,drop] = useDrop(()=>({
-    accept: "FIELD", drop: (item: {type:FeildType }) => {
+    accept: "FIELD", drop: (item: {type:FieldType }) => {
     const { steps, currentStepIndex } = store.getState().form;
     const active = steps[currentStepIndex];
     if (active) dispatch(addFeild({ stepId: active.id, type:item.type }));

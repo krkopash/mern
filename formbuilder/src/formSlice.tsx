@@ -2,7 +2,7 @@ import {v4 as uuid} from 'uuid';
 import { createSlice } from '@reduxjs/toolkit';
 import  type { PayloadAction } from '@reduxjs/toolkit';
 import { initialState } from './type';
-import type { validationRules, Field, Step,ViewMode,FormState, FeildType} from './type';
+import type { Step, validationRules, Field,ViewMode, FieldType} from './type';
 
 export const FormSlice =createSlice({
     name: 'form', initialState,
@@ -28,7 +28,7 @@ export const FormSlice =createSlice({
             s.currentStepIndex=a.payload;
         },
 
-        addFeild:(s, a:PayloadAction<{stepId:string, type: FeildType}>)=>{
+        addFeild:(s, a:PayloadAction<{stepId:string, type: FieldType}>)=>{
             const st =s.steps.find((x)=>x.id===a.payload.stepId);
             if(st){
                 st.fields.push({id: uuid(),type: a.payload.type, placeholder:"",
@@ -66,8 +66,19 @@ export const FormSlice =createSlice({
     
          setViewMode:(s, a: PayloadAction<ViewMode>) =>{
          s.viewmode = a.payload; },
+
+         loadForm:(s, a:PayloadAction<{steps:Step[]; viewMode?:ViewMode}>)=>{
+            s.steps=a.payload.steps;
+            s.currentStepIndex=0;
+            s.selectField=null;
+            if(a.payload.viewMode){
+                s.viewmode=a.payload.viewMode;
+            }
+
+         }
+
     }
 });
 
-export const { addStep, removeStep, updateStepTitle, setActivityStep, addFeild, removeField, updateField, updateFieldValidation, reorderFields, selectField, setViewMode } = FormSlice.actions;
+export const { addStep, removeStep,loadForm, updateStepTitle, setActivityStep, addFeild, removeField, updateField, updateFieldValidation, reorderFields, selectField, setViewMode } = FormSlice.actions;
 export default FormSlice.reducer;

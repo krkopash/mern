@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
+    "@tanstack/react-devtools": "^0.10.1",
+    "@tanstack/react-form": "^1.28.6",
+    "@tanstack/react-form-devtools": "^0.2.20",
     "react": "^19.2.4",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
